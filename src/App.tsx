@@ -69,8 +69,9 @@ function App() {
       {/* Main Container */}
       <main className="relative z-10 overflow-x-hidden bg-black">
         {/* Hero Section */}
+        {/* Hero Section */}
         <section className="w-full">
-          <div className="relative w-full">
+          <div className="relative w-full flex flex-col items-center">
             {/* Desktop Image */}
             <img
               alt="Hero Image Desktop"
@@ -84,12 +85,13 @@ function App() {
               href="https://t.me/+tks5bJG6GiFiYTFh"
               target="_blank"
               rel="noopener noreferrer"
-              className="absolute hidden md:block cursor-pointer z-30 bg-transparent  rounded-2xl"
+              onClick={handleJoinClick}
+              className="absolute hidden md:block cursor-pointer z-30 bg-transparent hover:bg-white/10 transition-colors rounded-2xl"
               style={{
-                top: "72%", // Move up/down (Increase % to move down)
-                left: "3%", // Move left/right (Increase % to move right)
-                width: "25%", // Make box wider/narrower
-                height: "12%", // Make box taller/shorter
+                top: "72%",
+                left: "3%",
+                width: "25%",
+                height: "12%",
               }}
               aria-label="Contact Us on Telegram"
             ></a>
@@ -107,12 +109,14 @@ function App() {
               href="https://t.me/+tks5bJG6GiFiYTFh"
               target="_blank"
               rel="noopener noreferrer"
+              onClick={handleJoinClick}
+              // NOTE: Change 'bg-transparent' to 'bg-red-500/50' temporarily to see where this box is on your phone!
               className="absolute block md:hidden cursor-pointer z-30 bg-transparent hover:bg-white/10 transition-colors rounded-2xl"
               style={{
-                top: "75%", // Move up/down
-                left: "10%", // Move left/right
-                width: "80%", // Make box wider/narrower
-                height: "12%", // Make box taller/shorter
+                top: "82%", // Move up/down (Increase % to move down)
+                left: "25%", // Move left/right (Increase % to move right)
+                width: "50%", // Make box wider/narrower
+                height: "10%", // Make box taller/shorter
               }}
               aria-label="Contact Us on Telegram"
             ></a>
