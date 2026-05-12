@@ -3,12 +3,22 @@ import "./App.css";
 
 function App() {
   // Handle Button Clicks
-  const handleJoinClick = (e: React.MouseEvent<HTMLDivElement>) => {
+  // Handle Button Clicks
+  const handleJoinClick = (
+    e: React.MouseEvent<HTMLDivElement | HTMLButtonElement | HTMLAnchorElement>,
+  ) => {
     if (e) e.preventDefault();
 
-    // Trigger native Meta Pixel event
-    if (typeof window !== "undefined" && (window as any).fbq) {
-      (window as any).fbq("track", "Lead");
+    // Trigger native Meta Pixel event safely without 'any'
+    if (typeof window !== "undefined") {
+      // Create a safely typed version of window just for this block
+      const win = window as Window & {
+        fbq?: (action: string, eventName: string) => void;
+      };
+
+      if (win.fbq) {
+        win.fbq("track", "Lead");
+      }
     }
 
     const telegramLink = import.meta.env.VITE_TELEGRAM_LINK;
@@ -61,20 +71,51 @@ function App() {
         {/* Hero Section */}
         <section className="w-full">
           <div className="relative w-full">
-            {/* Desktop Image: Hidden on mobile, block on md and up */}
+            {/* Desktop Image */}
             <img
               alt="Hero Image Desktop"
               className="w-full h-auto object-cover hidden md:block"
               src="/hero.png"
               fetchPriority="high"
             />
-            {/* Mobile Image: Block on mobile, hidden on md and up */}
+
+            {/* Clickable Area for Desktop */}
+            <a
+              href="https://t.me/+tks5bJG6GiFiYTFh"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="absolute hidden md:block cursor-pointer z-30 bg-transparent  rounded-2xl"
+              style={{
+                top: "72%", // Move up/down (Increase % to move down)
+                left: "3%", // Move left/right (Increase % to move right)
+                width: "25%", // Make box wider/narrower
+                height: "12%", // Make box taller/shorter
+              }}
+              aria-label="Contact Us on Telegram"
+            ></a>
+
+            {/* Mobile Image */}
             <img
               alt="Hero Image Mobile"
               className="w-full h-auto object-cover block md:hidden"
               src="/mobilehero.png"
               fetchPriority="high"
             />
+
+            {/* Clickable Area for Mobile */}
+            <a
+              href="https://t.me/+tks5bJG6GiFiYTFh"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="absolute block md:hidden cursor-pointer z-30 bg-transparent hover:bg-white/10 transition-colors rounded-2xl"
+              style={{
+                top: "75%", // Move up/down
+                left: "10%", // Move left/right
+                width: "80%", // Make box wider/narrower
+                height: "12%", // Make box taller/shorter
+              }}
+              aria-label="Contact Us on Telegram"
+            ></a>
           </div>
         </section>
 
