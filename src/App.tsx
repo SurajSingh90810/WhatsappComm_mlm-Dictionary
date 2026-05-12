@@ -113,7 +113,7 @@ function App() {
               // NOTE: Change 'bg-transparent' to 'bg-red-500/50' temporarily to see where this box is on your phone!
               className="absolute block md:hidden cursor-pointer z-30 bg-transparent hover:bg-white/10 transition-colors rounded-2xl"
               style={{
-                top: "82%", // Move up/down (Increase % to move down)
+                top: "88%", // Move up/down (Increase % to move down)
                 left: "25%", // Move left/right (Increase % to move right)
                 width: "50%", // Make box wider/narrower
                 height: "10%", // Make box taller/shorter
