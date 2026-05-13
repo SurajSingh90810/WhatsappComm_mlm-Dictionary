@@ -127,12 +127,12 @@ function App() {
         <section className="container mx-auto px-4 sm:px-6 pt-20 sm:pt-32 pb-16 relative">
           <div className="text-center mb-20 sm:mb-32">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-4 font-display text-white">
-              Decentralized <span className="text-yellow-500">Roadmap</span>{" "}
+              Modern Retail <span className="text-yellow-500">Roadmap</span>{" "}
               2026
             </h2>
             <p className="text-gray-400 text-xs sm:text-sm max-w-lg mx-auto">
-              Building a transparent, educational, and community-driven Web3
-              infrastructure.
+              Building a seamless, personalized, and efficient modern retail
+              environment.
             </p>
           </div>
 
