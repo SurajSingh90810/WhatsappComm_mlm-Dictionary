@@ -225,15 +225,14 @@ function App() {
               {/* Left Side (Text) */}
               <div className="lg:w-7/12 text-center lg:text-left relative w-full">
                 <h2 className="text-2xl sm:text-3xl md:text-5xl font-black mb-4 sm:mb-5 text-white relative z-10">
-                  Secure Your{" "}
+                  Get More Info With Your {" "}
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 to-yellow-300">
-                    Competitive Edge!
+                    Growth!
                   </span>
                 </h2>
                 <div className="flex flex-col gap-3 sm:gap-4 text-center md:text-left relative z-10">
                   <p className="text-gray-400 text-xs sm:text-sm md:text-base font-light italic mt-1 sm:mt-2">
-                    "Turn data into alpha. Leverage institutional flow to
-                    dominate the decentralized frontier."
+                    "Then access our site for complete insights."
                   </p>
                 </div>
 
