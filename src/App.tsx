@@ -146,12 +146,12 @@ function App() {
                   <span className="text-yellow-500 text-[9px] sm:text-[10px] font-bold tracking-widest uppercase block text-left lg:text-right mb-2">
                     Phase 01
                   </span>
-                  <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4 text-left lg:text-right">
-                    Web3 Community Hub
+                  <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4 ">
+                    Unified Inventory Systems{" "}
                   </h3>
-                  <p className="text-gray-400 text-xs sm:text-sm leading-relaxed text-left lg:text-right">
-                    Join our decentralized network for timely blockchain
-                    updates, educational resources, and daily industry insights.
+                  <p className="text-gray-400 text-xs sm:text-sm leading-relaxed">
+                    Integrating physical and online stores for real-time
+                    inventory visibility and cross-channel purchasing.
                   </p>
                 </div>
               </div>
@@ -180,12 +180,12 @@ function App() {
                   <span className="text-yellow-400 text-[9px] sm:text-[10px] font-bold tracking-widest uppercase block mb-2 text-left">
                     Phase 02
                   </span>
-                  <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4 text-left">
-                    Decentralized Literacy
+                  <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4">
+                    Customer Data Platform
                   </h3>
-                  <p className="text-gray-400 text-xs sm:text-sm leading-relaxed text-left">
-                    Access comprehensive guides on DeFi technology and empower
-                    yourself with foundational blockchain knowledge.
+                  <p className="text-gray-400 text-xs sm:text-sm ">
+                    Harnessing customer insights to create personalized
+                    profiles, targeted marketing, and predictive analytics.
                   </p>
                 </div>
               </div>
@@ -198,13 +198,12 @@ function App() {
                   <span className="text-yellow-500 text-[9px] sm:text-[10px] font-bold tracking-widest uppercase block text-left lg:text-right mb-2">
                     Phase 03
                   </span>
-                  <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4 text-left lg:text-right">
-                    Ecosystem Expansion
+                  <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4 ">
+                    Advanced Retail Automation
                   </h3>
-                  <p className="text-gray-400 text-xs sm:text-sm leading-relaxed text-left lg:text-right">
-                    Continuous development of decentralized tools with a focus
-                    on transparency, security frameworks, and seamless user
-                    experience.
+                  <p className="text-gray-400 text-xs sm:text-sm">
+                    Implementing AI for supply chain optimization, automated
+                    fulfillment, and personalized in-store technology.
                   </p>
                 </div>
               </div>
