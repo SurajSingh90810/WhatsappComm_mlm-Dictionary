@@ -20,7 +20,7 @@ function App() {
     }
 
     // Opens the native device dialer with the phone number pre-filled
-    window.location.href = "tel:6352263520";
+    window.location.href = "tel:9913282777";
   };
 
   // Add scroll animation logic for the roadmap boxes
