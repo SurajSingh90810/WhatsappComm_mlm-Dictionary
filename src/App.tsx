@@ -98,7 +98,7 @@ function App() {
               onClick={handleJoinClick}
               className="absolute block md:hidden cursor-pointer z-30 bg-transparent hover:bg-white/10 transition-colors rounded-2xl"
               style={{
-                top: "88%",
+                top: "82%",
                 left: "25%",
                 width: "50%",
                 height: "10%",
