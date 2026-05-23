@@ -20,7 +20,7 @@ function App() {
     }
 
     // Opens the native device dialer with the phone number pre-filled
-    window.location.href = "tel:9913282777";
+    window.location.href = "tel:9558925406";
   };
 
   // Add scroll animation logic for the roadmap boxes
@@ -72,7 +72,7 @@ function App() {
 
             {/* Clickable Area for Desktop */}
             <a
-              href="tel:9913282777"
+              href="tel:9558925406"
               onClick={handleJoinClick}
               className="absolute hidden md:block cursor-pointer z-30 bg-transparent hover:bg-white/10 transition-colors rounded-2xl"
               style={{
@@ -94,7 +94,7 @@ function App() {
 
             {/* Clickable Area for Mobile */}
             <a
-              href="tel:9913282777"
+              href="tel:9558925406"
               onClick={handleJoinClick}
               className="absolute block md:hidden cursor-pointer z-30 bg-transparent hover:bg-white/10 transition-colors rounded-2xl"
               style={{
