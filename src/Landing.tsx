@@ -1,17 +1,50 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./App.css"; // Ensure this path is correct
+
+// Array of your achievement images
+const achievementSlides = [
+  "../src/assets/1.jpeg",
+  "../src/assets/2.jpeg",
+  "../src/assets/3.jpeg",
+  "../src/assets/4.jpeg",
+  "../src/assets/5.jpeg",
+  "../src/assets/6.jpeg",
+  "../src/assets/7.jpeg",
+];
 
 function Landing() {
   const navigate = useNavigate();
 
-  // Handle Button Clicks to Redirect to Form
+  // --- Carousel State & Logic ---
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) =>
+      prev === achievementSlides.length - 1 ? 0 : prev + 1,
+    );
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) =>
+      prev === 0 ? achievementSlides.length - 1 : prev - 1,
+    );
+  };
+
+  // Autoplay functionality with hover pause
+  useEffect(() => {
+    if (isHovered) return;
+    const slideInterval = setInterval(nextSlide, 3500); // 3.5 seconds
+    return () => clearInterval(slideInterval);
+  }, [isHovered]);
+
+  // --- Handlers & Other Logic ---
   const handleJoinClick = (
     e: React.MouseEvent<HTMLDivElement | HTMLButtonElement | HTMLAnchorElement>,
   ) => {
     if (e) e.preventDefault();
 
-    // Trigger native Meta Pixel event safely (Optional: you can also move this to the form submit)
     if (typeof window !== "undefined") {
       const win = window as Window & {
         fbq?: (action: string, eventName: string) => void;
@@ -22,11 +55,10 @@ function Landing() {
       }
     }
 
-    // Redirect to the Form page instead of opening the dialer directly
     navigate("/form");
   };
 
-  // Add scroll animation logic for the roadmap boxes
+  // Scroll animation logic for roadmap boxes
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -72,18 +104,12 @@ function Landing() {
               src="/hero.png"
               fetchPriority="high"
             />
-
             {/* Clickable Area for Desktop */}
             <a
               href="/form"
               onClick={handleJoinClick}
               className="absolute hidden md:block cursor-pointer z-30 bg-transparent hover:bg-white/10 transition-colors rounded-2xl"
-              style={{
-                top: "72%",
-                left: "3%",
-                width: "25%",
-                height: "12%",
-              }}
+              style={{ top: "72%", left: "3%", width: "25%", height: "12%" }}
               aria-label="Access Form"
             ></a>
 
@@ -94,25 +120,123 @@ function Landing() {
               src="/mobilehero.png"
               fetchPriority="high"
             />
-
             {/* Clickable Area for Mobile */}
             <a
               href="/form"
               onClick={handleJoinClick}
               className="absolute block md:hidden cursor-pointer z-30 bg-transparent hover:bg-white/10 transition-colors rounded-2xl"
-              style={{
-                top: "82%",
-                left: "25%",
-                width: "50%",
-                height: "10%",
-              }}
+              style={{ top: "82%", left: "25%", width: "50%", height: "10%" }}
               aria-label="Access Form"
             ></a>
           </div>
         </section>
 
+        {/* --- PROFESSIONAL CAROUSEL SECTION --- */}
+        <section className="container mx-auto px-4 sm:px-6 pt-16 sm:pt-24 pb-12 relative z-20">
+          <div className="text-center mb-10 sm:mb-16">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-4 font-display text-white tracking-tight">
+              Goaldex{" "}
+              <span className="text-yellow-500 drop-shadow-[0_0_15px_rgba(234,179,8,0.5)]">
+                Legends
+              </span>
+            </h2>
+            <p className="text-gray-400 text-sm sm:text-base max-w-lg mx-auto leading-relaxed">
+              Unstoppable achievements unlocked by our top performers.
+            </p>
+          </div>
+
+          {/* Clean Wrapper: No background box, perfectly sized for portrait flyers */}
+          <div
+            className="relative w-full max-w-[320px] sm:max-w-[420px] mx-auto group"
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+          >
+            {/* Viewport (Hides overflowing slides) */}
+            <div className="overflow-hidden rounded-2xl shadow-[0_15px_50px_-12px_rgba(234,179,8,0.25)] relative">
+              {/* Smooth Gliding Track */}
+              <div
+                className="flex transition-transform duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)]"
+                style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+              >
+                {achievementSlides.map((slide, index) => (
+                  <div
+                    key={index}
+                    className="w-full flex-shrink-0 flex items-center justify-center"
+                  >
+                    <img
+                      src={slide}
+                      alt={`Legend ${index + 1}`}
+                      className="w-full h-auto object-cover rounded-2xl"
+                      loading={index === 0 ? "eager" : "lazy"}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Hover-reveal Navigation Arrows (Positioned Outside Image) */}
+            <button
+              onClick={prevSlide}
+              className="absolute -left-6 sm:-left-16 top-1/2 -translate-y-1/2 bg-black/80 backdrop-blur-md border border-yellow-500/30 text-yellow-500 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-full hover:bg-yellow-500 hover:text-black hover:scale-110 transition-all duration-300 shadow-xl z-30 opacity-100 lg:opacity-0 lg:group-hover:opacity-100"
+              aria-label="Previous slide"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={2.5}
+                stroke="currentColor"
+                className="w-5 h-5"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15.75 19.5L8.25 12l7.5-7.5"
+                />
+              </svg>
+            </button>
+
+            <button
+              onClick={nextSlide}
+              className="absolute -right-6 sm:-right-16 top-1/2 -translate-y-1/2 bg-black/80 backdrop-blur-md border border-yellow-500/30 text-yellow-500 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-full hover:bg-yellow-500 hover:text-black hover:scale-110 transition-all duration-300 shadow-xl z-30 opacity-100 lg:opacity-0 lg:group-hover:opacity-100"
+              aria-label="Next slide"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={2.5}
+                stroke="currentColor"
+                className="w-5 h-5"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M8.25 4.5l7.5 7.5-7.5 7.5"
+                />
+              </svg>
+            </button>
+
+            {/* External Minimalist Indicators */}
+            <div className="flex justify-center items-center gap-2 mt-8">
+              {achievementSlides.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentSlide(index)}
+                  className={`h-1.5 rounded-full transition-all duration-500 ease-out ${
+                    currentSlide === index
+                      ? "bg-yellow-500 w-8 shadow-[0_0_10px_rgba(234,179,8,0.8)]"
+                      : "bg-gray-700 w-2 hover:bg-gray-500"
+                  }`}
+                  aria-label={`Go to slide ${index + 1}`}
+                />
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* Strategic Roadmap Section */}
-        <section className="container mx-auto px-4 sm:px-6 pt-20 sm:pt-32 pb-16 relative">
+        <section className="container mx-auto px-4 sm:px-6 pt-12 sm:pt-24 pb-16 relative">
           <div className="text-center mb-16 sm:mb-24">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-4 font-display text-white">
               Modern Retail <span className="text-yellow-500">Roadmap</span>{" "}
@@ -245,7 +369,6 @@ function Landing() {
                   className="relative w-full sm:w-auto cursor-pointer group"
                 >
                   <div className="absolute -inset-5 z-0 rounded-[2rem]"></div>
-
                   <button className="relative z-10 w-full sm:w-auto bg-yellow-500 text-black hover:bg-yellow-400 px-3 min-[375px]:px-5 md:px-10 py-3 md:py-5 rounded-xl flex items-center justify-center gap-2 min-[375px]:gap-3 transition-all transform group-hover:scale-[1.03] active:scale-95 shadow-[0_0_30px_rgba(234,179,8,0.3)] overflow-hidden pointer-events-none">
                     <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out z-0"></div>
                     <svg
@@ -255,7 +378,6 @@ function Landing() {
                     >
                       <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
                     </svg>
-
                     <span className="text-[12px] min-[375px]:text-[14px] md:text-lg font-bold uppercase tracking-wider whitespace-normal sm:whitespace-nowrap relative z-10 leading-tight">
                       Access Private Channel
                     </span>

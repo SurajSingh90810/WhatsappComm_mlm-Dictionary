@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { db } from "./firebase"; // सुनिश्चित करें कि firebase.ts इसी फोल्डर में है
 
 const Form = () => {
   const [formData, setFormData] = useState({
@@ -31,13 +33,12 @@ const Form = () => {
       [name]: value,
     });
 
-    // जब यूज़र टाइप करना शुरू करे तो एरर हटा दें
     if (errors[name as keyof typeof errors]) {
       setErrors({ ...errors, [name]: "" });
     }
   };
 
-  // Validation Logic (हिंदी एरर मैसेज के साथ)
+  // Validation Logic
   const validate = () => {
     let isValid = true;
     const newErrors = { name: "", mobile: "", investment: "" };
@@ -47,7 +48,6 @@ const Form = () => {
       isValid = false;
     }
 
-    // मोबाइल वैलिडेशन: ठीक 10 अंक होने चाहिए
     const mobileRegex = /^[0-9]{10}$/;
     if (!formData.mobile) {
       newErrors.mobile = "मोबाइल नंबर दर्ज करना आवश्यक है।";
@@ -57,10 +57,7 @@ const Form = () => {
       isValid = false;
     }
 
-    if (!formData.investment) {
-      newErrors.investment = "निवेश राशि दर्ज करना आवश्यक है।";
-      isValid = false;
-    } else if (Number(formData.investment) <= 0) {
+    if (formData.investment && Number(formData.investment) <= 0) {
       newErrors.investment = "कृपया सही राशि दर्ज करें।";
       isValid = false;
     }
@@ -69,31 +66,50 @@ const Form = () => {
     return isValid;
   };
 
-  // फॉर्म सबमिट करने की प्रक्रिया
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  // फॉर्म सबमिट करने की प्रक्रिया (Firebase के साथ)
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (validate()) {
-      console.log("Form Data Prepared:", formData);
-
-      // चरण 1: लोडिंग स्टेट शुरू करें
       setIsSubmitting(true);
 
-      // चरण 2: प्रोसेसिंग का समय (1.2 सेकंड)
-      setTimeout(() => {
-        setIsSubmitting(false);
+      try {
+        // जो डेटा Firebase में सेव करना है उसे तैयार करें
+        const leadData = {
+          name: formData.name,
+          mobile: formData.mobile,
+          investment: formData.investment
+            ? Number(formData.investment)
+            : "Not Provided",
+          createdAt: serverTimestamp(),
+        };
 
-        // चरण 3: बटन पर सफलता का संदेश दिखाएं
+        // Firebase Firestore में डेटा सेव करें
+        const docRef = await addDoc(collection(db, "leads"), leadData);
+
+        // ✅ CONSOLE LOG: सेव हुआ सारा डेटा कंसोल में दिखाएं
+        console.log("✅ Data Successfully Stored in Firebase!");
+        console.log("👉 Document ID:", docRef.id);
+        console.log("👉 User Data:", leadData);
+
+        setIsSubmitting(false);
         setIsSubmitted(true);
 
-        // चरण 4: यूज़र को "सबमिट हो गया!" पढ़ने का समय दें, फिर डायलर खोलें (1 सेकंड)
+        // 1 सेकंड बाद डायलर ओपन करें
         setTimeout(() => {
           window.location.href = "tel:9558925406";
         }, 1000);
-      }, 1200);
+      } catch (error) {
+        // अगर कोई एरर आता है तो उसे कंसोल में दिखाएं
+        console.error("❌ Firebase Error:", error);
+        setIsSubmitting(false);
+      }
     }
   };
 
   const isLocked = isSubmitting || isSubmitted;
+  const isFormIncomplete =
+    !formData.name.trim() || formData.mobile.length !== 10;
+  const isButtonDisabled = isLocked || isFormIncomplete;
 
   return (
     <div className="min-h-screen bg-black relative flex items-center justify-center p-4 overflow-hidden">
@@ -117,8 +133,8 @@ const Form = () => {
           <form onSubmit={handleSubmit} className="space-y-5">
             {/* Name Input */}
             <div>
-              <label className="text-yellow-500 text-[15px] sm:text-s font-bold tracking-widest uppercase block mb-2">
-                पूरा नाम
+              <label className="text-yellow-500 text-[15px] sm:text-sm font-bold tracking-widest uppercase block mb-2">
+                पूरा नाम *
               </label>
               <input
                 type="text"
@@ -139,7 +155,7 @@ const Form = () => {
             {/* Mobile Input */}
             <div>
               <label className="text-yellow-500 text-[15px] sm:text-sm font-bold tracking-widest uppercase block mb-2">
-                मोबाइल नंबर
+                मोबाइल नंबर *
               </label>
               <input
                 type="tel"
@@ -158,10 +174,11 @@ const Form = () => {
               )}
             </div>
 
-            {/* Investment Input */}
+            {/* Investment Input (Optional) */}
             <div>
-              <label className="text-yellow-500 text-[15px] sm:text-sm font-bold tracking-widest uppercase block mb-2">
-                अनुमानित निवेश राशि (₹)
+              <label className="text-yellow-500 text-[15px] sm:text-sm font-bold tracking-widest uppercase block mb-2 flex justify-between">
+                <span>अनुमानित निवेश राशि (₹)</span>
+                <span className="text-gray-500 text-[10px]">(वैकल्पिक)</span>
               </label>
               <input
                 type="number"
@@ -185,20 +202,20 @@ const Form = () => {
             <div className="pt-2">
               <button
                 type="submit"
-                disabled={isLocked}
-                className={`relative w-full group overflow-hidden px-6 py-4 rounded-xl flex items-center justify-center gap-2 transition-all duration-300 shadow-[0_0_20px_rgba(234,179,8,0.2)] ${
+                disabled={isButtonDisabled}
+                className={`relative w-full group overflow-hidden px-6 py-4 rounded-xl flex items-center justify-center gap-2 transition-all duration-300   ${
                   isSubmitted
                     ? "bg-green-500 text-black cursor-default shadow-green-500/40"
-                    : "bg-yellow-500 text-black hover:bg-yellow-400 active:scale-95 hover:scale-[1.02]"
+                    : isFormIncomplete
+                      ? "bg-yellow-500/30 text-white/40 cursor-not-allowed border border-yellow-500/20"
+                      : "bg-yellow-500 text-black hover:bg-yellow-400 active:scale-95 hover:scale-[1.02]"
                 } ${isSubmitting ? "opacity-90 cursor-wait" : ""}`}
               >
-                {/* Sweep animation (only shown when idle) */}
-                {!isLocked && (
+                {!isLocked && !isFormIncomplete && (
                   <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out z-0"></div>
                 )}
 
                 <span className="text-sm md:text-base font-bold uppercase tracking-wider relative z-10 leading-tight flex items-center justify-center gap-2">
-                  {/* Loading Spinner */}
                   {isSubmitting && (
                     <svg
                       className="animate-spin h-5 w-5 text-black"
@@ -207,25 +224,24 @@ const Form = () => {
                       viewBox="0 0 24 24"
                     >
                       <circle
-                        className="opacity-25"
                         cx="12"
                         cy="12"
                         r="10"
                         stroke="currentColor"
                         strokeWidth="4"
+                        className="opacity-25"
                       ></circle>
                       <path
-                        className="opacity-75"
                         fill="currentColor"
+                        className="opacity-75"
                         d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                       ></path>
                     </svg>
                   )}
 
-                  {/* Success Checkmark */}
                   {isSubmitted && (
                     <svg
-                      className="w-5 h-5"
+                      className="w-5 h-5 text-black"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -240,7 +256,6 @@ const Form = () => {
                     </svg>
                   )}
 
-                  {/* Text Logic */}
                   {isSubmitting
                     ? "प्रक्रिया चल रही है..."
                     : isSubmitted
