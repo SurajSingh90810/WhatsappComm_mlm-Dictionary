@@ -1,18 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./App.css"; // Ensure this path is correct
+import img1 from "../src/assets/1.jpeg";
+import img2 from "../src/assets/2.jpeg";
+import img3 from "../src/assets/3.jpeg";
+import img4 from "../src/assets/4.jpeg";
+import img5 from "../src/assets/5.jpeg";
+import img6 from "../src/assets/6.jpeg";
+import img7 from "../src/assets/7.jpeg";
 
-// Array of your achievement images
-// कोड के ऊपर का यह हिस्सा बदलें
-const achievementSlides = [
-  "/assets/1.jpeg",
-  "/assets/2.jpeg",
-  "/assets/3.jpeg",
-  "/assets/4.jpeg",
-  "/assets/5.jpeg",
-  "/assets/6.jpeg",
-  "/assets/7.jpeg",
-];
+const achievementSlides = [img1, img2, img3, img4, img5, img6, img7];
 
 function Landing() {
   const navigate = useNavigate();
