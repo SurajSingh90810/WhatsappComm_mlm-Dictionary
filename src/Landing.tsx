@@ -3,14 +3,15 @@ import { useNavigate } from "react-router-dom";
 import "./App.css"; // Ensure this path is correct
 
 // Array of your achievement images
+// कोड के ऊपर का यह हिस्सा बदलें
 const achievementSlides = [
-  "../src/assets/1.jpeg",
-  "../src/assets/2.jpeg",
-  "../src/assets/3.jpeg",
-  "../src/assets/4.jpeg",
-  "../src/assets/5.jpeg",
-  "../src/assets/6.jpeg",
-  "../src/assets/7.jpeg",
+  "/assets/1.jpeg",
+  "/assets/2.jpeg",
+  "/assets/3.jpeg",
+  "/assets/4.jpeg",
+  "/assets/5.jpeg",
+  "/assets/6.jpeg",
+  "/assets/7.jpeg",
 ];
 
 function Landing() {
