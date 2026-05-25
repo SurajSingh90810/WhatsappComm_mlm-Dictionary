@@ -21,7 +21,7 @@ const Form = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    // For mobile, restrict to numbers only as the user types
+    // मोबाइल के लिए केवल नंबर टाइप करने की अनुमति दें
     if (name === "mobile" && value !== "" && !/^\d+$/.test(value)) {
       return;
     }
@@ -31,37 +31,37 @@ const Form = () => {
       [name]: value,
     });
 
-    // Clear error when user starts typing
+    // जब यूज़र टाइप करना शुरू करे तो एरर हटा दें
     if (errors[name as keyof typeof errors]) {
       setErrors({ ...errors, [name]: "" });
     }
   };
 
-  // Validation Logic
+  // Validation Logic (हिंदी एरर मैसेज के साथ)
   const validate = () => {
     let isValid = true;
     const newErrors = { name: "", mobile: "", investment: "" };
 
     if (!formData.name.trim()) {
-      newErrors.name = "Name is required.";
+      newErrors.name = "कृपया अपना पूरा नाम दर्ज करें।";
       isValid = false;
     }
 
-    // Strict Mobile Validation: Exactly 10 digits
+    // मोबाइल वैलिडेशन: ठीक 10 अंक होने चाहिए
     const mobileRegex = /^[0-9]{10}$/;
     if (!formData.mobile) {
-      newErrors.mobile = "Mobile number is required.";
+      newErrors.mobile = "मोबाइल नंबर दर्ज करना आवश्यक है।";
       isValid = false;
     } else if (!mobileRegex.test(formData.mobile)) {
-      newErrors.mobile = "Please enter a valid 10-digit mobile number.";
+      newErrors.mobile = "कृपया सही 10-अंकों का मोबाइल नंबर दर्ज करें।";
       isValid = false;
     }
 
     if (!formData.investment) {
-      newErrors.investment = "Investment amount is required.";
+      newErrors.investment = "निवेश राशि दर्ज करना आवश्यक है।";
       isValid = false;
     } else if (Number(formData.investment) <= 0) {
-      newErrors.investment = "Please enter a valid amount.";
+      newErrors.investment = "कृपया सही राशि दर्ज करें।";
       isValid = false;
     }
 
@@ -69,23 +69,23 @@ const Form = () => {
     return isValid;
   };
 
-  // Handle Form Submission with SaaS-like Flow
+  // फॉर्म सबमिट करने की प्रक्रिया
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (validate()) {
       console.log("Form Data Prepared:", formData);
 
-      // Step 1: Start loading state
+      // चरण 1: लोडिंग स्टेट शुरू करें
       setIsSubmitting(true);
 
-      // Step 2: Simulate network request / processing delay (1.2 seconds)
+      // चरण 2: प्रोसेसिंग का समय (1.2 सेकंड)
       setTimeout(() => {
         setIsSubmitting(false);
 
-        // Step 3: Show Success State on the button
+        // चरण 3: बटन पर सफलता का संदेश दिखाएं
         setIsSubmitted(true);
 
-        // Step 4: Wait for user to read "Submitted!" before firing the dialer (1 second)
+        // चरण 4: यूज़र को "सबमिट हो गया!" पढ़ने का समय दें, फिर डायलर खोलें (1 सेकंड)
         setTimeout(() => {
           window.location.href = "tel:9558925406";
         }, 1000);
@@ -107,10 +107,10 @@ const Form = () => {
         <div className="glass p-8 sm:p-10 rounded-[24px] sm:rounded-[32px] border border-yellow-500/30 shadow-[0_10px_40px_rgba(234,179,8,0.15)] bg-black/80 backdrop-blur-xl">
           <div className="text-center mb-8">
             <h2 className="text-2xl sm:text-3xl font-extrabold text-white mb-2">
-              Join The <span className="text-yellow-500">Network</span>
+              हमारे <span className="text-yellow-500">नेटवर्क</span> से जुड़ें
             </h2>
             <p className="text-gray-400 text-sm">
-              Enter your details to access private investment insights.
+              निजी निवेश की विशेष जानकारी पाने के लिए अपना विवरण दर्ज करें।
             </p>
           </div>
 
@@ -118,7 +118,7 @@ const Form = () => {
             {/* Name Input */}
             <div>
               <label className="text-yellow-500 text-[10px] sm:text-xs font-bold tracking-widest uppercase block mb-2">
-                Full Name
+                पूरा नाम
               </label>
               <input
                 type="text"
@@ -126,7 +126,7 @@ const Form = () => {
                 value={formData.name}
                 onChange={handleChange}
                 disabled={isLocked}
-                placeholder="John Doe"
+                placeholder="उदा. राहुल कुमार"
                 className={`w-full bg-black/50 border ${
                   errors.name ? "border-red-500" : "border-yellow-500/30"
                 } rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500 transition-all ${isLocked ? "opacity-50 cursor-not-allowed" : ""}`}
@@ -139,7 +139,7 @@ const Form = () => {
             {/* Mobile Input */}
             <div>
               <label className="text-yellow-500 text-[10px] sm:text-xs font-bold tracking-widest uppercase block mb-2">
-                Mobile Number
+                मोबाइल नंबर
               </label>
               <input
                 type="tel"
@@ -161,7 +161,7 @@ const Form = () => {
             {/* Investment Input */}
             <div>
               <label className="text-yellow-500 text-[10px] sm:text-xs font-bold tracking-widest uppercase block mb-2">
-                Planned Investment (₹)
+                अनुमानित निवेश राशि (₹)
               </label>
               <input
                 type="number"
@@ -181,7 +181,7 @@ const Form = () => {
               )}
             </div>
 
-            {/* Submit Button with Dynamic States */}
+            {/* Submit Button */}
             <div className="pt-2">
               <button
                 type="submit"
@@ -242,10 +242,10 @@ const Form = () => {
 
                   {/* Text Logic */}
                   {isSubmitting
-                    ? "Processing..."
+                    ? "प्रक्रिया चल रही है..."
                     : isSubmitted
-                      ? "Submitted..."
-                      : "Submit Application"}
+                      ? "सबमिट हो गया!"
+                      : "आवेदन सबमिट करें"}
                 </span>
               </button>
             </div>
