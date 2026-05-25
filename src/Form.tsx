@@ -125,11 +125,13 @@ const Form = () => {
             <h2 className="text-2xl sm:text-3xl font-extrabold text-white mb-2">
               हमारे <span className="text-yellow-500">नेटवर्क</span> से जुड़ें
             </h2>
+            {/* यहाँ हमने विवरण की जगह डेटा का उपयोग किया और निर्देश को स्पष्ट किया */}
             <p className="text-gray-400 text-sm">
-              निजी निवेश की विशेष जानकारी पाने के लिए अपना विवरण दर्ज करें।
+              निजी निवेश की विशेष जानकारी पाने के लिए अपना <strong>डेटा</strong>{" "}
+              नीचे भरें। जानकारी सुरक्षित है, कृपया सही मोबाइल नंबर दें ताकि हम
+              आपसे संपर्क कर सकें।
             </p>
           </div>
-
           <form onSubmit={handleSubmit} className="space-y-5">
             {/* Name Input */}
             <div>
@@ -142,7 +144,7 @@ const Form = () => {
                 value={formData.name}
                 onChange={handleChange}
                 disabled={isLocked}
-                placeholder="उदा. राहुल कुमार"
+                placeholder="अपना पूरा नाम लिखें"
                 className={`w-full bg-black/50 border ${
                   errors.name ? "border-red-500" : "border-yellow-500/30"
                 } rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500 transition-all ${isLocked ? "opacity-50 cursor-not-allowed" : ""}`}
@@ -163,7 +165,7 @@ const Form = () => {
                 value={formData.mobile}
                 onChange={handleChange}
                 disabled={isLocked}
-                placeholder="9876543210"
+                placeholder="10 अंकों का मोबाइल नंबर"
                 maxLength={10}
                 className={`w-full bg-black/50 border ${
                   errors.mobile ? "border-red-500" : "border-yellow-500/30"
@@ -174,7 +176,7 @@ const Form = () => {
               )}
             </div>
 
-            {/* Investment Input (Optional) */}
+            {/* Investment Input */}
             <div>
               <label className="text-yellow-500 text-[15px] sm:text-sm font-bold tracking-widest uppercase block mb-2 flex justify-between">
                 <span>अनुमानित निवेश राशि (₹)</span>
@@ -186,16 +188,11 @@ const Form = () => {
                 value={formData.investment}
                 onChange={handleChange}
                 disabled={isLocked}
-                placeholder="500000"
+                placeholder="आप कितना निवेश करना चाहते हैं?"
                 className={`w-full bg-black/50 border ${
                   errors.investment ? "border-red-500" : "border-yellow-500/30"
                 } rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500 transition-all ${isLocked ? "opacity-50 cursor-not-allowed" : ""}`}
               />
-              {errors.investment && (
-                <p className="text-red-500 text-xs mt-1.5">
-                  {errors.investment}
-                </p>
-              )}
             </div>
 
             {/* Submit Button */}
