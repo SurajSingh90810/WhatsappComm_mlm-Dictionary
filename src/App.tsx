@@ -9,7 +9,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/form" element={<Form />} />
-        <Route path="/admin-secure-data-panel-2026" element={<LeadsList />} />
+        <Route path="/admin" element={<LeadsList />} />
       </Routes>
     </Router>
   );
