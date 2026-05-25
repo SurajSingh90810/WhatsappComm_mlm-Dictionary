@@ -138,7 +138,7 @@ const Form = () => {
 
             {/* Mobile Input */}
             <div>
-              <label className="text-yellow-500 text-[10px] sm:text-xs font-bold tracking-widest uppercase block mb-2">
+              <label className="text-yellow-500 text-[15px] sm:text-sm font-bold tracking-widest uppercase block mb-2">
                 मोबाइल नंबर
               </label>
               <input
@@ -160,7 +160,7 @@ const Form = () => {
 
             {/* Investment Input */}
             <div>
-              <label className="text-yellow-500 text-[10px] sm:text-xs font-bold tracking-widest uppercase block mb-2">
+              <label className="text-yellow-500 text-[15px] sm:text-sm font-bold tracking-widest uppercase block mb-2">
                 अनुमानित निवेश राशि (₹)
               </label>
               <input
@@ -245,7 +245,7 @@ const Form = () => {
                     ? "प्रक्रिया चल रही है..."
                     : isSubmitted
                       ? "सबमिट हो गया!"
-                      : "आवेदन सबमिट करें"}
+                      : "सबमिट करें"}
                 </span>
               </button>
             </div>
