@@ -117,7 +117,7 @@ const Form = () => {
           <form onSubmit={handleSubmit} className="space-y-5">
             {/* Name Input */}
             <div>
-              <label className="text-yellow-500 text-[10px] sm:text-xs font-bold tracking-widest uppercase block mb-2">
+              <label className="text-yellow-500 text-[15px] sm:text-s font-bold tracking-widest uppercase block mb-2">
                 पूरा नाम
               </label>
               <input
