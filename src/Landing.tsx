@@ -107,7 +107,7 @@ function Landing() {
               href="/form"
               onClick={handleJoinClick}
               className="absolute hidden md:block cursor-pointer z-30 bg-transparent hover:bg-white/10 transition-colors rounded-2xl"
-              style={{ top: "86%", left: "1.5%", width: "19%", height: "11%" }}
+              style={{ top: "80%", left: "1.7%", width: "35%", height: "13%" }}
               aria-label="Access Form"
             ></a>
 
@@ -123,7 +123,7 @@ function Landing() {
               href="/form"
               onClick={handleJoinClick}
               className="absolute block md:hidden cursor-pointer z-30 bg-transparent hover:bg-white/10 transition-colors rounded-2xl"
-              style={{ top: "90%", left: "31%", width: "39%", height: "7%" }}
+              style={{ top: "42%", left: "15%", width: "70%", height: "9%" }}
               aria-label="Access Form"
             ></a>
           </div>
