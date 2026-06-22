@@ -112,21 +112,20 @@ const Form = () => {
   const isButtonDisabled = isLocked || isFormIncomplete;
 
   return (
-    <div className="min-h-screen bg-black relative flex items-center justify-center p-4 overflow-hidden">
+    <div className="min-h-screen bg-[#0B1120] relative flex items-center justify-center p-4 overflow-hidden">
       {/* Background Elements */}
-      <div className="fixed inset-0 grid-bg pointer-events-none opacity-30 z-0"></div>
-      <div className="fixed top-[-5%] right-[-10%] w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-yellow-500/10 blur-[100px] md:blur-[120px] rounded-full pointer-events-none z-0"></div>
-      <div className="fixed bottom-[-5%] left-[-10%] w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-yellow-600/10 blur-[100px] md:blur-[120px] rounded-full pointer-events-none z-0"></div>
+      <div className="fixed inset-0 grid-bg pointer-events-none opacity-20 z-0"></div>
+      <div className="fixed top-[-10%] left-[-10%] w-[400px] md:w-[700px] h-[400px] md:h-[700px] bg-teal-500/20 blur-[120px] md:blur-[150px] rounded-full pointer-events-none z-0"></div>
+      <div className="fixed bottom-[-5%] right-[-10%] w-[300px] md:w-[600px] h-[300px] md:h-[600px] bg-cyan-600/10 blur-[100px] md:blur-[130px] rounded-full pointer-events-none z-0"></div>
 
       {/* Form Container */}
       <div className="relative z-10 w-full max-w-md">
-        <div className="glass p-8 sm:p-10 rounded-[24px] sm:rounded-[32px] border border-yellow-500/30 shadow-[0_10px_40px_rgba(234,179,8,0.15)] bg-black/80 backdrop-blur-xl">
+        <div className="glass p-8 sm:p-10 rounded-[24px] sm:rounded-[32px] border border-teal-500/30 shadow-[0_10px_40px_rgba(45,212,191,0.15)] bg-[#0f172a]/60 backdrop-blur-xl">
           <div className="text-center mb-8">
             <h2 className="text-2xl sm:text-3xl font-extrabold text-white mb-2">
-              हमारे <span className="text-yellow-500">नेटवर्क</span> से जुड़ें
+              हमारे <span className="text-teal-400">नेटवर्क</span> से जुड़ें
             </h2>
-            {/* यहाँ हमने विवरण की जगह डेटा का उपयोग किया और निर्देश को स्पष्ट किया */}
-            <p className="text-gray-400 text-sm">
+            <p className="text-slate-400 text-sm">
               GOALDEX से जुड़ने और फॉर्म सबमिट करने के लिए, नीचे दी गई सभी
               डिटेल्स भरना अनिवार्य है।
             </p>
@@ -134,7 +133,7 @@ const Form = () => {
           <form onSubmit={handleSubmit} className="space-y-5">
             {/* Name Input */}
             <div>
-              <label className="text-yellow-500 text-[15px] sm:text-sm font-bold tracking-widest uppercase block mb-2">
+              <label className="text-teal-400 text-[15px] sm:text-sm font-bold tracking-widest uppercase block mb-2">
                 पूरा नाम *
               </label>
               <input
@@ -144,9 +143,11 @@ const Form = () => {
                 onChange={handleChange}
                 disabled={isLocked}
                 placeholder="अपना पूरा नाम लिखें"
-                className={`w-full bg-black/50 border ${
-                  errors.name ? "border-red-500" : "border-yellow-500/30"
-                } rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500 transition-all ${isLocked ? "opacity-50 cursor-not-allowed" : ""}`}
+                className={`w-full bg-[#0B1120]/50 border ${
+                  errors.name ? "border-red-500" : "border-teal-500/30"
+                } rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-teal-400 focus:ring-1 focus:ring-teal-400 transition-all ${
+                  isLocked ? "opacity-50 cursor-not-allowed" : ""
+                }`}
               />
               {errors.name && (
                 <p className="text-red-500 text-xs mt-1.5">{errors.name}</p>
@@ -155,7 +156,7 @@ const Form = () => {
 
             {/* Mobile Input */}
             <div>
-              <label className="text-yellow-500 text-[15px] sm:text-sm font-bold tracking-widest uppercase block mb-2">
+              <label className="text-teal-400 text-[15px] sm:text-sm font-bold tracking-widest uppercase block mb-2">
                 मोबाइल नंबर *
               </label>
               <input
@@ -166,9 +167,11 @@ const Form = () => {
                 disabled={isLocked}
                 placeholder="10 अंकों का मोबाइल नंबर"
                 maxLength={10}
-                className={`w-full bg-black/50 border ${
-                  errors.mobile ? "border-red-500" : "border-yellow-500/30"
-                } rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500 transition-all ${isLocked ? "opacity-50 cursor-not-allowed" : ""}`}
+                className={`w-full bg-[#0B1120]/50 border ${
+                  errors.mobile ? "border-red-500" : "border-teal-500/30"
+                } rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-teal-400 focus:ring-1 focus:ring-teal-400 transition-all ${
+                  isLocked ? "opacity-50 cursor-not-allowed" : ""
+                }`}
               />
               {errors.mobile && (
                 <p className="text-red-500 text-xs mt-1.5">{errors.mobile}</p>
@@ -177,9 +180,9 @@ const Form = () => {
 
             {/* Investment Input */}
             <div>
-              <label className="text-yellow-500 text-[15px] sm:text-sm font-bold tracking-widest uppercase block mb-2 flex justify-between">
+              <label className="text-teal-400 text-[15px] sm:text-sm font-bold tracking-widest uppercase block mb-2 flex justify-between">
                 <span>अनुमानित निवेश राशि (₹)</span>
-                <span className="text-gray-500 text-[10px]">(वैकल्पिक)</span>
+                <span className="text-slate-500 text-[10px]">(वैकल्पिक)</span>
               </label>
               <input
                 type="number"
@@ -188,9 +191,11 @@ const Form = () => {
                 onChange={handleChange}
                 disabled={isLocked}
                 placeholder="आप कितना निवेश करना चाहते हैं?"
-                className={`w-full bg-black/50 border ${
-                  errors.investment ? "border-red-500" : "border-yellow-500/30"
-                } rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500 transition-all ${isLocked ? "opacity-50 cursor-not-allowed" : ""}`}
+                className={`w-full bg-[#0B1120]/50 border ${
+                  errors.investment ? "border-red-500" : "border-teal-500/30"
+                } rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-teal-400 focus:ring-1 focus:ring-teal-400 transition-all ${
+                  isLocked ? "opacity-50 cursor-not-allowed" : ""
+                }`}
               />
             </div>
 
@@ -199,12 +204,12 @@ const Form = () => {
               <button
                 type="submit"
                 disabled={isButtonDisabled}
-                className={`relative w-full group overflow-hidden px-6 py-4 rounded-xl flex items-center justify-center gap-2 transition-all duration-300   ${
+                className={`relative w-full group overflow-hidden px-6 py-4 rounded-xl flex items-center justify-center gap-2 transition-all duration-300 ${
                   isSubmitted
-                    ? "bg-green-500 text-black cursor-default shadow-green-500/40"
+                    ? "bg-emerald-500 text-white cursor-default shadow-emerald-500/40"
                     : isFormIncomplete
-                      ? "bg-yellow-500/30 text-white/40 cursor-not-allowed border border-yellow-500/20"
-                      : "bg-yellow-500 text-black hover:bg-yellow-400 active:scale-95 hover:scale-[1.02]"
+                      ? "bg-teal-500/30 text-white/40 cursor-not-allowed border border-teal-500/20"
+                      : "bg-teal-500 text-white hover:bg-teal-400 active:scale-95 hover:scale-[1.02] shadow-[0_0_20px_rgba(45,212,191,0.3)]"
                 } ${isSubmitting ? "opacity-90 cursor-wait" : ""}`}
               >
                 {!isLocked && !isFormIncomplete && (
@@ -214,7 +219,7 @@ const Form = () => {
                 <span className="text-sm md:text-base font-bold uppercase tracking-wider relative z-10 leading-tight flex items-center justify-center gap-2">
                   {isSubmitting && (
                     <svg
-                      className="animate-spin h-5 w-5 text-black"
+                      className="animate-spin h-5 w-5 text-white"
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
@@ -237,7 +242,7 @@ const Form = () => {
 
                   {isSubmitted && (
                     <svg
-                      className="w-5 h-5 text-black"
+                      className="w-5 h-5 text-white"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
