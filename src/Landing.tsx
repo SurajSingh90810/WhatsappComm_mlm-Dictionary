@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import {
   Network,
   Banknote,
@@ -64,8 +63,6 @@ const mlmFeatures = [
 ];
 
 function Landing() {
-  const navigate = useNavigate();
-
   // --- Logo Carousel State & Logic ---
   const [currentLogoSlide, setCurrentLogoSlide] = useState(0);
   const [itemsToShow, setItemsToShow] = useState(2);
@@ -101,12 +98,9 @@ function Landing() {
     return () => clearInterval(logoInterval);
   }, [itemsToShow]);
 
-  // --- Handlers & Other Logic ---
-  const handleJoinClick = (
-    e: React.MouseEvent<HTMLDivElement | HTMLButtonElement | HTMLAnchorElement>,
-  ) => {
-    if (e) e.preventDefault();
-
+  // --- Tracking Logic for WhatsApp Clicks ---
+  const handleWhatsAppClick = () => {
+    // We removed e.preventDefault() so the <a> tag naturally opens the WhatsApp link
     if (typeof window !== "undefined") {
       const win = window as Window & {
         fbq?: (action: string, eventName: string) => void;
@@ -116,8 +110,6 @@ function Landing() {
         win.fbq("track", "Lead");
       }
     }
-
-    navigate("/form");
   };
 
   // Scroll animation logic for roadmap boxes
@@ -166,11 +158,13 @@ function Landing() {
               fetchPriority="high"
             />
             <a
-              href="/form"
-              onClick={handleJoinClick}
+              href="https://wa.me/447412812865"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={handleWhatsAppClick}
               className="absolute hidden md:block cursor-pointer z-30 bg-transparent hover:bg-white/10 transition-colors rounded-2xl"
               style={{ top: "80%", left: "1.7%", width: "35%", height: "13%" }}
-              aria-label="Access Form"
+              aria-label="Contact on WhatsApp"
             ></a>
 
             <img
@@ -180,11 +174,13 @@ function Landing() {
               fetchPriority="high"
             />
             <a
-              href="/form"
-              onClick={handleJoinClick}
+              href="https://wa.me/447412812865"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={handleWhatsAppClick}
               className="absolute block md:hidden cursor-pointer z-30 bg-transparent hover:bg-white/10 transition-colors rounded-2xl"
               style={{ top: "42%", left: "15%", width: "70%", height: "9%" }}
-              aria-label="Access Form"
+              aria-label="Contact on WhatsApp"
             ></a>
           </div>
         </section>
@@ -314,19 +310,23 @@ function Landing() {
 
               {/* CTA BUTTON AREA */}
               <div className="w-full lg:w-5/12 flex flex-col items-center lg:items-end relative z-20">
-                <div
-                  onClick={handleJoinClick}
-                  className="relative w-full sm:w-auto cursor-pointer group"
+                <a
+                  href="https://wa.me/447412812865"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={handleWhatsAppClick}
+                  className="relative w-full sm:w-auto cursor-pointer group block"
                 >
                   <div className="absolute -inset-5 z-0 rounded-[2rem]"></div>
-                  <button className="relative z-10 w-full sm:w-auto bg-teal-500 text-white hover:bg-teal-400 px-3 min-[375px]:px-5 md:px-10 py-3 md:py-5 rounded-full flex items-center justify-center gap-2 min-[375px]:gap-3 transition-all transform group-hover:scale-[1.03] active:scale-95  overflow-hidden pointer-events-none">
+                  {/* Changed <button> to <div> to keep valid HTML inside <a> tag */}
+                  <div className="relative z-10 w-full sm:w-auto bg-teal-500 text-white hover:bg-teal-400 px-3 min-[375px]:px-5 md:px-10 py-3 md:py-5 rounded-full flex items-center justify-center gap-2 min-[375px]:gap-3 transition-all transform group-hover:scale-[1.03] active:scale-95 overflow-hidden pointer-events-none">
                     <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out z-0"></div>
                     <Fingerprint className="text-xl min-[375px]:text-2xl md:text-3xl w-6 h-6 sm:w-8 sm:h-8 shrink-0 group-hover:-rotate-12 transition-transform relative z-10" />
                     <span className="text-[12px] min-[375px]:text-[14px] md:text-lg font-bold uppercase tracking-wider whitespace-normal sm:whitespace-nowrap relative z-10 leading-tight">
                       Whatsapp Channel
                     </span>
-                  </button>
-                </div>
+                  </div>
+                </a>
               </div>
             </div>
           </div>
