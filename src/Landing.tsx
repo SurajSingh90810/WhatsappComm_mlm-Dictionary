@@ -14,7 +14,7 @@ import "./App.css"; // Ensure this path is correct
 
 // New Logo Images
 import logo1 from "../src/assets/13.png";
-import logo2 from "../src/assets/14.png";
+import logo2 from "../src/assets/14.png";   
 import logo3 from "../src/assets/15.png";
 import logo4 from "../src/assets/16.png";
 import logo5 from "../src/assets/17.png";
