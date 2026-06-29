@@ -1,5 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Landing from "./Landing";
+import Form from "./Form";
+import LeadsList from "./LeadsList";
 // import Form from "./Form";
 // import LeadsList from "./LeadsList";
 
@@ -8,8 +10,8 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Landing />} />
-        {/* <Route path="/form" element={<Form />} /> */}
-        {/* <Route path="/admin-secure-data-panel-2026" element={<LeadsList />} /> */}
+        <Route path="/form" element={<Form />} />
+        <Route path="/admin-secure-data-panel-2026" element={<LeadsList />} />
       </Routes>
     </Router>
   );

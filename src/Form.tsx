@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-import { db } from "./firebase"; // सुनिश्चित करें कि firebase.ts इसी फोल्डर में है
+import { db } from "./firebase";
 
 const Form = () => {
   const [formData, setFormData] = useState({
@@ -23,7 +23,6 @@ const Form = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    // मोबाइल के लिए केवल नंबर टाइप करने की अनुमति दें
     if (name === "mobile" && value !== "" && !/^\d+$/.test(value)) {
       return;
     }
@@ -66,14 +65,13 @@ const Form = () => {
     return isValid;
   };
 
-  // फॉर्म सबमिट करने की प्रक्रिया (Firebase के साथ)
+  // Form Submit Logic
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (validate()) {
       setIsSubmitting(true);
 
       try {
-        // जो डेटा Firebase में सेव करना है उसे तैयार करें
         const leadData = {
           name: formData.name,
           mobile: formData.mobile,
@@ -83,10 +81,8 @@ const Form = () => {
           createdAt: serverTimestamp(),
         };
 
-        // Firebase Firestore में डेटा सेव करें
         const docRef = await addDoc(collection(db, "leads"), leadData);
 
-        // ✅ CONSOLE LOG: सेव हुआ सारा डेटा कंसोल में दिखाएं
         console.log("✅ Data Successfully Stored in Firebase!");
         console.log("👉 Document ID:", docRef.id);
         console.log("👉 User Data:", leadData);
@@ -94,12 +90,11 @@ const Form = () => {
         setIsSubmitting(false);
         setIsSubmitted(true);
 
-        // 1 सेकंड बाद डायलर ओपन करें
+        // Redirect to WhatsApp 1 second after successful submission
         setTimeout(() => {
-          window.location.href = "tel:9558925406";
+          window.location.href = "https://wa.me/447412812865";
         }, 1000);
       } catch (error) {
-        // अगर कोई एरर आता है तो उसे कंसोल में दिखाएं
         console.error("❌ Firebase Error:", error);
         setIsSubmitting(false);
       }
@@ -113,12 +108,10 @@ const Form = () => {
 
   return (
     <div className="min-h-screen bg-[#0B1120] relative flex items-center justify-center p-4 overflow-hidden">
-      {/* Background Elements */}
       <div className="fixed inset-0 grid-bg pointer-events-none opacity-20 z-0"></div>
       <div className="fixed top-[-10%] left-[-10%] w-[400px] md:w-[700px] h-[400px] md:h-[700px] bg-teal-500/20 blur-[120px] md:blur-[150px] rounded-full pointer-events-none z-0"></div>
       <div className="fixed bottom-[-5%] right-[-10%] w-[300px] md:w-[600px] h-[300px] md:h-[600px] bg-cyan-600/10 blur-[100px] md:blur-[130px] rounded-full pointer-events-none z-0"></div>
 
-      {/* Form Container */}
       <div className="relative z-10 w-full max-w-md">
         <div className="glass p-8 sm:p-10 rounded-[24px] sm:rounded-[32px] border border-teal-500/30 shadow-[0_10px_40px_rgba(45,212,191,0.15)] bg-[#0f172a]/60 backdrop-blur-xl">
           <div className="text-center mb-8">
@@ -130,8 +123,8 @@ const Form = () => {
               डिटेल्स भरना अनिवार्य है।
             </p>
           </div>
+
           <form onSubmit={handleSubmit} className="space-y-5">
-            {/* Name Input */}
             <div>
               <label className="text-teal-400 text-[15px] sm:text-sm font-bold tracking-widest uppercase block mb-2">
                 पूरा नाम *
@@ -154,7 +147,6 @@ const Form = () => {
               )}
             </div>
 
-            {/* Mobile Input */}
             <div>
               <label className="text-teal-400 text-[15px] sm:text-sm font-bold tracking-widest uppercase block mb-2">
                 मोबाइल नंबर *
@@ -178,7 +170,6 @@ const Form = () => {
               )}
             </div>
 
-            {/* Investment Input */}
             <div>
               <label className="text-teal-400 text-[15px] sm:text-sm font-bold tracking-widest uppercase block mb-2 flex justify-between">
                 <span>अनुमानित निवेश राशि (₹)</span>
@@ -199,7 +190,6 @@ const Form = () => {
               />
             </div>
 
-            {/* Submit Button */}
             <div className="pt-2">
               <button
                 type="submit"

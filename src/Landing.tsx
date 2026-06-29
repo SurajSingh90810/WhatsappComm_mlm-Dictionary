@@ -1,4 +1,5 @@
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Network,
   Banknote,
@@ -10,11 +11,10 @@ import {
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
-import "./App.css"; // Ensure this path is correct
+import "./App.css";
 
-// New Logo Images
 import logo1 from "../src/assets/13.png";
-import logo2 from "../src/assets/14.png";   
+import logo2 from "../src/assets/14.png";
 import logo3 from "../src/assets/15.png";
 import logo4 from "../src/assets/16.png";
 import logo5 from "../src/assets/17.png";
@@ -22,7 +22,6 @@ import logo6 from "../src/assets/18.png";
 
 const logoSlides = [logo1, logo2, logo3, logo4, logo5, logo6];
 
-// MLM Features Data
 const mlmFeatures = [
   {
     title: "MLM योजना मैनेजमेंट",
@@ -63,11 +62,11 @@ const mlmFeatures = [
 ];
 
 function Landing() {
-  // --- Logo Carousel State & Logic ---
+  const navigate = useNavigate();
+
   const [currentLogoSlide, setCurrentLogoSlide] = useState(0);
   const [itemsToShow, setItemsToShow] = useState(2);
 
-  // Handle Responsive layout for Logo Carousel
   useEffect(() => {
     const handleResize = () => {
       setItemsToShow(window.innerWidth >= 768 ? 3 : 2);
@@ -77,7 +76,6 @@ function Landing() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Navigation Handlers for Arrows
   const nextSlide = () => {
     setCurrentLogoSlide((prev) =>
       prev >= logoSlides.length - itemsToShow ? 0 : prev + 1,
@@ -90,7 +88,6 @@ function Landing() {
     );
   };
 
-  // Auto-slide logic
   useEffect(() => {
     const logoInterval = setInterval(() => {
       nextSlide();
@@ -98,21 +95,21 @@ function Landing() {
     return () => clearInterval(logoInterval);
   }, [itemsToShow]);
 
-  // --- Tracking Logic for WhatsApp Clicks ---
-  const handleWhatsAppClick = () => {
-    // We removed e.preventDefault() so the <a> tag naturally opens the WhatsApp link
+  const handleWhatsAppClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+
     if (typeof window !== "undefined") {
       const win = window as Window & {
         fbq?: (action: string, eventName: string) => void;
       };
-
       if (win.fbq) {
         win.fbq("track", "Lead");
       }
     }
+
+    navigate("/form");
   };
 
-  // Scroll animation logic for roadmap boxes
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -141,12 +138,10 @@ function Landing() {
 
   return (
     <>
-      {/* Background Elements */}
       <div className="fixed inset-0 grid-bg pointer-events-none opacity-20 z-0"></div>
       <div className="fixed top-[-10%] left-[-10%] w-[400px] md:w-[700px] h-[400px] md:h-[700px] bg-teal-500/20 blur-[120px] md:blur-[150px] rounded-full pointer-events-none z-0"></div>
       <div className="fixed bottom-[-5%] right-[-10%] w-[300px] md:w-[600px] h-[300px] md:h-[600px] bg-cyan-600/10 blur-[100px] md:blur-[130px] rounded-full pointer-events-none z-0"></div>
 
-      {/* Main Container */}
       <main className="relative z-10 overflow-x-hidden bg-[#0B1120]">
         {/* Hero Section */}
         <section className="w-full">
@@ -158,9 +153,7 @@ function Landing() {
               fetchPriority="high"
             />
             <a
-              href="https://wa.me/447412812865"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/form"
               onClick={handleWhatsAppClick}
               className="absolute hidden md:block cursor-pointer z-30 bg-transparent hover:bg-white/10 transition-colors rounded-2xl"
               style={{ top: "80%", left: "1.7%", width: "35%", height: "13%" }}
@@ -174,9 +167,7 @@ function Landing() {
               fetchPriority="high"
             />
             <a
-              href="https://wa.me/447412812865"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/form"
               onClick={handleWhatsAppClick}
               className="absolute block md:hidden cursor-pointer z-30 bg-transparent hover:bg-white/10 transition-colors rounded-2xl"
               style={{ top: "42%", left: "15%", width: "70%", height: "9%" }}
@@ -185,7 +176,7 @@ function Landing() {
           </div>
         </section>
 
-        {/* --- PARTNERS / LOGO CAROUSEL SECTION (WITH ARROWS) --- */}
+        {/* Partners Carousel */}
         <section className="container mx-auto px-4 sm:px-6 pt-12 sm:pt-16 relative z-20">
           <div className="text-center mb-8 sm:mb-12">
             <h3 className="text-sm sm:text-base font-bold text-slate-400 uppercase tracking-widest">
@@ -193,9 +184,7 @@ function Landing() {
             </h3>
           </div>
 
-          {/* Carousel Wrapper: मोबाइल में px-6 किया गया ताकि लोगो को जगह मिले */}
           <div className="max-w-6xl mx-auto relative px-6 sm:px-12">
-            {/* Left Arrow Button: मोबाइल में पैडिंग और साइज कम किया गया */}
             <button
               onClick={prevSlide}
               className="absolute -left-2 sm:left-0 top-1/2 -translate-y-1/2 z-30 bg-slate-800/80 hover:bg-teal-500 text-teal-400 hover:text-slate-900 p-1.5 sm:p-2 rounded-full border border-teal-500/30 hover:border-teal-400 transition-all duration-300 shadow-md backdrop-blur-sm group"
@@ -204,7 +193,6 @@ function Landing() {
               <ChevronLeft className="w-4 h-4 sm:w-6 sm:h-6 transition-transform group-hover:-translate-x-0.5" />
             </button>
 
-            {/* Carousel Window */}
             <div className="overflow-hidden w-full">
               <div
                 className="flex transition-transform duration-700 ease-in-out"
@@ -233,7 +221,6 @@ function Landing() {
               </div>
             </div>
 
-            {/* Right Arrow Button: मोबाइल में पैडिंग और साइज कम किया गया */}
             <button
               onClick={nextSlide}
               className="absolute -right-2 sm:right-0 top-1/2 -translate-y-1/2 z-30 bg-slate-800/80 hover:bg-teal-500 text-teal-400 hover:text-slate-900 p-1.5 sm:p-2 rounded-full border border-teal-500/30 hover:border-teal-400 transition-all duration-300 shadow-md backdrop-blur-sm group"
@@ -244,7 +231,7 @@ function Landing() {
           </div>
         </section>
 
-        {/* --- MLM FEATURES CARD SECTION --- */}
+        {/* MLM Features */}
         <section className="container mx-auto px-4 sm:px-6 pt-12 pb-16 relative z-20">
           <div className="text-center mb-12 sm:mb-16">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-4 font-display text-white tracking-tight">
@@ -308,17 +295,13 @@ function Landing() {
                 </div>
               </div>
 
-              {/* CTA BUTTON AREA */}
               <div className="w-full lg:w-5/12 flex flex-col items-center lg:items-end relative z-20">
                 <a
-                  href="https://wa.me/447412812865"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="/form"
                   onClick={handleWhatsAppClick}
                   className="relative w-full sm:w-auto cursor-pointer group block"
                 >
                   <div className="absolute -inset-5 z-0 rounded-[2rem]"></div>
-                  {/* Changed <button> to <div> to keep valid HTML inside <a> tag */}
                   <div className="relative z-10 w-full sm:w-auto bg-teal-500 text-white hover:bg-teal-400 px-3 min-[375px]:px-5 md:px-10 py-3 md:py-5 rounded-full flex items-center justify-center gap-2 min-[375px]:gap-3 transition-all transform group-hover:scale-[1.03] active:scale-95 overflow-hidden pointer-events-none">
                     <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out z-0"></div>
                     <Fingerprint className="text-xl min-[375px]:text-2xl md:text-3xl w-6 h-6 sm:w-8 sm:h-8 shrink-0 group-hover:-rotate-12 transition-transform relative z-10" />
