@@ -58,9 +58,6 @@ const LeadsList = () => {
                     Mobile Number
                   </th>
                   <th className="p-4 border border-yellow-500/20">
-                    Investment
-                  </th>
-                  <th className="p-4 border border-yellow-500/20">
                     Date & Time
                   </th>
                 </tr>
@@ -88,9 +85,6 @@ const LeadsList = () => {
                         {copiedId === lead.id ? "Copied!" : "Copy"}
                       </button>
                     </td>
-                    <td className="p-4 border border-yellow-500/20">
-                      {lead.investment ? `₹${lead.investment}` : "N/A"}
-                    </td>
                     <td className="p-4 border border-yellow-500/20 text-sm font-medium">
                       {formatDateTime(lead.createdAt)}
                     </td>
@@ -112,7 +106,6 @@ const LeadsList = () => {
                     {lead.name}
                   </span>
 
-                  {/* Date Time size increased here */}
                   <span className="text-sm text-gray-300 font-medium bg-white/5 px-2 py-1 rounded">
                     {formatDateTime(lead.createdAt)}
                   </span>
@@ -131,13 +124,6 @@ const LeadsList = () => {
                   >
                     {copiedId === lead.id ? "Copied!" : "Copy"}
                   </button>
-                </div>
-
-                <div className="mt-3 text-sm text-gray-300 border-t border-yellow-500/10 pt-3">
-                  Investment:{" "}
-                  <span className="text-white font-semibold">
-                    {lead.investment ? `₹${lead.investment}` : "N/A"}
-                  </span>
                 </div>
               </div>
             ))}
