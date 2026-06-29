@@ -156,7 +156,7 @@ function Landing() {
               href="/form"
               onClick={handleWhatsAppClick}
               className="absolute hidden md:block cursor-pointer z-30 bg-transparent hover:bg-white/10 transition-colors rounded-2xl"
-              style={{ top: "80%", left: "1.7%", width: "35%", height: "13%" }}
+              style={{ top: "79%", left: "1.7%", width: "31%", height: "11%" }}
               aria-label="Contact on WhatsApp"
             ></a>
 
@@ -170,7 +170,7 @@ function Landing() {
               href="/form"
               onClick={handleWhatsAppClick}
               className="absolute block md:hidden cursor-pointer z-30 bg-transparent hover:bg-white/10 transition-colors rounded-2xl"
-              style={{ top: "42%", left: "15%", width: "70%", height: "9%" }}
+              style={{ top: "44%", left: "22%", width: "56%", height: "8%" }}
               aria-label="Contact on WhatsApp"
             ></a>
           </div>
