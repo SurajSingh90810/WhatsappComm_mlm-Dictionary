@@ -45,12 +45,12 @@ const Form = () => {
       isValid = false;
     }
 
-    const mobileRegex = /^[0-9]{10}$/;
+    const mobileRegex = /^[0-9]{12}$/;
     if (!formData.mobile) {
       newErrors.mobile = "मोबाइल नंबर दर्ज करना आवश्यक है।";
       isValid = false;
     } else if (!mobileRegex.test(formData.mobile)) {
-      newErrors.mobile = "कृपया सही 10-अंकों का मोबाइल नंबर दर्ज करें।";
+      newErrors.mobile = "कृपया सही अंकों का मोबाइल नंबर दर्ज करें।";
       isValid = false;
     }
 
@@ -93,7 +93,7 @@ const Form = () => {
 
   const isLocked = isSubmitting || isSubmitted;
   const isFormIncomplete =
-    !formData.name.trim() || formData.mobile.length !== 10;
+    !formData.name.trim() || formData.mobile.length !== 12;
   const isButtonDisabled = isLocked || isFormIncomplete;
 
   return (
@@ -147,8 +147,8 @@ const Form = () => {
                 value={formData.mobile}
                 onChange={handleChange}
                 disabled={isLocked}
-                placeholder="10 अंकों का मोबाइल नंबर"
-                maxLength={10}
+                placeholder="अंकों में मोबाइल नंबर लिखें"
+                maxLength={12}
                 className={`w-full bg-[#0B1120]/50 border ${
                   errors.mobile ? "border-red-500" : "border-teal-500/30"
                 } rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-teal-400 focus:ring-1 focus:ring-teal-400 transition-all ${
