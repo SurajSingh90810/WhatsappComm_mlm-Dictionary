@@ -45,12 +45,13 @@ const Form = () => {
       isValid = false;
     }
 
-    const mobileRegex = /^[0-9]{12}$/;
+    // UPDATED: Now accepts 10 to 12 digits
+    const mobileRegex = /^[0-9]{10,12}$/;
     if (!formData.mobile) {
       newErrors.mobile = "मोबाइल नंबर दर्ज करना आवश्यक है।";
       isValid = false;
     } else if (!mobileRegex.test(formData.mobile)) {
-      newErrors.mobile = "कृपया सही अंकों का मोबाइल नंबर दर्ज करें।";
+      newErrors.mobile = "कृपया 10 से 12 अंकों का सही मोबाइल नंबर दर्ज करें।";
       isValid = false;
     }
 
@@ -92,8 +93,10 @@ const Form = () => {
   };
 
   const isLocked = isSubmitting || isSubmitted;
-  const isFormIncomplete =
-    !formData.name.trim() || formData.mobile.length !== 12;
+
+  // UPDATED: Button enables as soon as name is filled and mobile is at least 10 digits
+  const isFormIncomplete = !formData.name.trim() || formData.mobile.length < 10;
+
   const isButtonDisabled = isLocked || isFormIncomplete;
 
   return (
